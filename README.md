@@ -22,7 +22,7 @@ Add the following to your `Package.swift` file:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/loopwork-ai/JSONLines.git", from: "1.0.0")
+    .package(url: "https://github.com/loopwork/JSONLines.git", from: "1.0.0")
 ]
 ```
 
@@ -47,7 +47,7 @@ Task {
     // Get a byte stream from a URL or file
     let url = URL(string: "https://example.com/todos.jsonl")!
     let (stream, _) = try await URLSession.shared.bytes(for: URLRequest(url: url))
-    
+
     // Process each JSON line as it arrives
     for try await todo in stream.jsonLines(decoding: Todo.self) {
         print("Todo #\(todo.id): \(todo.title)\(todo.completed ? " ✓ Completed" : "")")
@@ -73,11 +73,11 @@ Task {
     // Set up a custom decoder with date decoding strategy
     let decoder = JSONDecoder()
     decoder.dateDecodingStrategy = .iso8601
-    
+
     // Get data from a file
     let fileURL = URL(fileURLWithPath: "/path/to/logs.jsonl")
     let data = try Data(contentsOf: fileURL)
-    
+
     // Process the JSON Lines with the custom decoder
     for try await entry in data.jsonLines(decoding: LogEntry.self, with: decoder) {
         print("[\(entry.timestamp)] [\(entry.level)] \(entry.message)")
@@ -112,7 +112,7 @@ Task {
     for try await dataPoint in fileHandle.bytes.jsonLines(decoding: DataPoint.self) {
         // Process each data point individually
         processDataPoint(dataPoint)
-        
+
         count += 1
         if count % 1000 == 0 {
             print("Processed \(count) data points")
