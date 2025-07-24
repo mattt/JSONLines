@@ -22,7 +22,7 @@ Add the following to your `Package.swift` file:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/loopwork/JSONLines.git", from: "1.0.0")
+    .package(url: "https://github.com/mattt/JSONLines.git", from: "1.0.0")
 ]
 ```
 
@@ -123,6 +123,7 @@ Task {
 
 ## License
 
-This project is licensed under the Apache License, Version 2.0.
+This project is available under the MIT license.
+See the LICENSE file for more info.
 
 [jsonl]: https://jsonlines.org/
