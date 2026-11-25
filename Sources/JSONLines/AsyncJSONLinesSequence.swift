@@ -46,8 +46,8 @@ where Base.Element == UInt8 {
                     let lineData = Data(buffer[..<newlineIndex])
                     buffer.removeSubrange(..<(newlineIndex + 1))
 
-                    // Skip empty lines
-                    if lineData.isEmpty {
+                    // An empty CRLF line contains only the carriage return here.
+                    if lineData.isEmpty || (lineData.count == 1 && lineData.first == 0x0D) {
                         continue
                     }
 
