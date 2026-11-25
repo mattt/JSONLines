@@ -94,14 +94,14 @@ struct AsyncJSONLinesSequenceTests {
 
     @Suite("Empty Lines")
     struct EmptyLineTests {
-        @Test("Empty lines between valid JSON")
-        func testEmptyLines() async throws {
-            let jsonlData = """
-                {"id": 1, "title": "Task 1", "completed": false}
-
-                {"id": 2, "title": "Task 2", "completed": true}
-
-                """
+        @Test("Empty lines between valid JSON", arguments: ["\n", "\r\n"])
+        func testEmptyLines(lineEnding: String) async throws {
+            let jsonlData = [
+                #"{"id": 1, "title": "Task 1", "completed": false}"#,
+                "",
+                #"{"id": 2, "title": "Task 2", "completed": true}"#,
+                "",
+            ].joined(separator: lineEnding)
 
             let jsonlSequence = AsyncBytes(jsonlData.utf8).jsonLines(decoding: Todo.self)
 
